@@ -1,0 +1,16 @@
+1. Add Class Lib -> dotnet new classlib -o "DevTeams.Data"
+2. Add Class Lib -> dotnet new classlib -o "DevTeams.Repository"
+
+3. Add The front Facing App -> dotnet new console -o "DevTeams.UI"
+
+4. Connect Things Together
+        UI -> DevTeams.Data : dotnet add .\DevTeams.UI\ reference .\DevTeams.Data\
+        UI -> DevTeams.Repository : dotnet add .\DevTeams.UI\ reference .\DevTeams.Repository\
+
+        Repository -> DevTeams.Data : dotnet add .\DevTeams.Repository\ reference .\DevTeams.Data\
+
+5. Add solution: dotnet new sln -n "DevTeams"
+    A. Connect to solution
+        dotnet sln add .\DevTeams.Data\
+        dotnet sln add .\DevTeams.Repository\
+        dotnet sln add .\DevTeams.UI\

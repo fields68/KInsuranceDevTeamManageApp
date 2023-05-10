@@ -1,0 +1,28 @@
+- Two POCOS: 
+- Developer
+    ID Typeof(int)
+    Developers have Name Typeof(string) 
+    We also need to know wether or not they have access to the online learning tool: Pluralsight (t/f) Typeof(bool)
+
+- DevTeam
+    Team ID Typeof(int)
+    Team members (Developers) List<T> -> List<Developer>
+    Team Name Typeof(string)
+
+- Two Repositories: DeveloperRepo, DevTeamRepo //Collections -> and we can preform actions on those Collections
+    Repos need CRUD methods as appropriate
+
+- User Interface (Console Application)
+
+
+Clients will typically not give you all the info you need, so you may need to use your brain and peers to fill in the blanks!
+
+
+
+Teams need to contain their  and their 
+
+Our managers need to be able to add and remove members to/from a team by their unique identifier. They should be able to see a list of existing developers to choose from and add to existing teams. Odds are, the manager will create a team, and then add Developers individually from the Developer Directory to that team.
+
+Challenge: Our HR Department uses the software monthly to get a list of all our Developers that need a Pluralsight license. Create this functionality in the Console Application
+
+Challenge: Some of our managers are nitpicky and would like the functionality to add multiple Developers to a team at once, rather than one by one. Integrate this into your application.
