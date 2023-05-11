@@ -96,17 +96,13 @@ public class ProgramUI
                     WaitKeyPress();
                     break;
             }
-
-
         }
     }
 
     private void ShowAllDevelopers()
     {
         Clear();
-
         ShowEnlistedDevs();
-
         WaitKeyPress();
     }
 
@@ -166,6 +162,7 @@ public class ProgramUI
     private bool ValadateDeveloperInDataBase(int userInputDevID)
     {
         Developer dev = GetDeveloperDataFromDB(userInputDevID);
+
         if (dev != null)
         {
             Clear();
@@ -195,7 +192,6 @@ public class ProgramUI
         while (editDeveloper)
         {
             Clear();
-
             ForegroundColor = ConsoleColor.DarkMagenta;
             WriteLine("=====Edit Developer Menu=====");
             ResetColor();
@@ -207,7 +203,6 @@ public class ProgramUI
                                         );
 
             string userInput = ReadLine()!;
-
             switch (userInput)
             {
                 case "1":
@@ -230,7 +225,6 @@ public class ProgramUI
                     WaitKeyPress();
                     break;
             }
-
         }
     }
 
@@ -273,7 +267,6 @@ public class ProgramUI
                     "2. No \n");
 
         bool hasMadeSelection = false;
-
         while (hasMadeSelection == false)
         {
             string userInputPSAccount = ReadLine()!;
@@ -328,7 +321,6 @@ public class ProgramUI
             }
             else
             {
-
                 WriteLine("Please select and existing developer.");
             }
         }
@@ -348,11 +340,8 @@ public class ProgramUI
         try
         {
             WriteLine("Select Developer by ID.");
-
             int userInputDevID = int.Parse(ReadLine()!);
-
             Developer devInDb = GetDeveloperDataFromDB(userInputDevID);
-
             bool isValidated = ValadateDeveloperInDataBase(userInputDevID);
 
             if (isValidated)
@@ -370,7 +359,6 @@ public class ProgramUI
                     }
                     else
                     {
-
                         WriteLine($"The developer {updateDevData.FullName} HAS NOT been updated!");
                     }
                 }
@@ -499,7 +487,6 @@ public class ProgramUI
                     WaitKeyPress();
                     break;
             }
-
         }
     }
 
@@ -526,8 +513,8 @@ public class ProgramUI
             WriteLine("Please enter the new TEAM NAME.");
             team.TeamName = ReadLine()!;
             bool hasFilledPositions = false;
-
             List<Developer> auxDevelopers = new List<Developer>();
+
             foreach (Developer auxDev in _dRepo.GetDevelopers())
             {
                 auxDevelopers.Add(auxDev);
@@ -546,7 +533,6 @@ public class ProgramUI
                         int userInputDevID = int.Parse(ReadLine()!);
 
                         Developer selectedDev = _dRepo.GetDeveloperbyID(userInputDevID);
-
                         bool devAlreadyAdded = false;
 
                         if (selectedDev != null)
@@ -756,7 +742,6 @@ public class ProgramUI
                 }
 
                 List<Developer> devsToAdd = new List<Developer>();
-
                 if (team != null)
                 {
                     bool hasFilledPositions = false;
@@ -866,6 +851,4 @@ public class ProgramUI
         WriteLine("Press any key to continue.");
         ReadKey();
     }
-
-
 }
