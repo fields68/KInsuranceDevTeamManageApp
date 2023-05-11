@@ -23,22 +23,34 @@ public class ProgramUI
         while (IsRunning)
         {
             Clear();
-            ;
-            WriteLine($"Welcome to Komodo DevTeams \n Please make a selection:\n" +
-                        "==========Developer Management==========\n" +
-                        "1.  Show all Developers \n" +
+            ForegroundColor = ConsoleColor.DarkMagenta;
+            WriteLine("Welcome to Komodo DevTeams\nPlease make a selection:");
+            ResetColor();
+
+            ForegroundColor = ConsoleColor.Magenta;
+            WriteLine("==========Developer Management==========\n");
+            ResetColor();
+            WriteLine("1.  Show all Developers \n" +
                         "2.  Find Developer by ID\n" +
-                        "3.  Edit Developers Menu\n" +
-                        "==========Dev Team Management==========\n" +
-                        "4.  Show all Developer Teams\n" +
+                        "3.  Edit Developers Menu\n");
+
+            ForegroundColor = ConsoleColor.Magenta;
+            WriteLine("==========Dev Team Management==========\n");
+            ResetColor();
+            WriteLine("4.  Show all Developer Teams\n" +
                         "5.  Find Developer Team by ID\n" +
-                        "6.  Edit Developer Teams Menu\n" +
-                        "==========Bonus==========\n" +
-                        "7. Developers without Pluralsight Account\n" +
-                        "8. Add Multiple Developers to a team\n\n" +
-                        "==========Exit Application==========\n" +
-                        "00. Exit Application"
-                        );
+                        "6.  Edit Developer Teams Menu\n");
+
+            ForegroundColor = ConsoleColor.Magenta;
+            WriteLine("==========Bonus==========\n");
+            ResetColor();
+            WriteLine("7. Developers without Pluralsight Account\n" +
+                        "8. Add Multiple Developers to a team\n");
+
+            ForegroundColor = ConsoleColor.Magenta;
+            WriteLine("==========Exit Application==========\n");
+            ResetColor();
+            WriteLine("00. Exit Application");
 
             string userInput = ReadLine()!;
 
@@ -70,12 +82,18 @@ public class ProgramUI
                     break;
                 case "00":
                     IsRunning = false;
+                    ForegroundColor = ConsoleColor.Magenta;
                     WriteLine("Thanks for using DevTeams");
                     WaitKeyPress();
+                    ResetColor();
                     Clear();
                     break;
                 default:
-                    WriteLine("Please enter a valid number between 1-");
+                    ForegroundColor = ConsoleColor.DarkRed;
+                    WriteLine($"{userInput} is not an option.\n" +
+                                "Please enter a valid number between 1-8 or 00");
+                    ResetColor();
+                    WaitKeyPress();
                     break;
             }
 
@@ -95,7 +113,9 @@ public class ProgramUI
     private void ShowEnlistedDevs()
     {
         Clear();
+        ForegroundColor = ConsoleColor.Magenta;
         WriteLine("***Developer Listing***");
+        ResetColor();
         List<Developer> devsInDb = _dRepo.GetDevelopers();
         ValadateDeveloperDataBase(devsInDb);
     }
@@ -104,7 +124,6 @@ public class ProgramUI
     {
         if (devsInDb.Count() > 0)
         {
-            Clear();
             foreach (Developer dev in devsInDb)
             {
                 DisplayDevData(dev);
@@ -135,6 +154,7 @@ public class ProgramUI
             WriteLine("Select Developer by ID.");
             int userInputDevID = int.Parse(ReadLine()!);
             ValadateDeveloperInDataBase(userInputDevID);
+            WaitKeyPress();
         }
         catch (Exception ex)
         {
@@ -170,13 +190,15 @@ public class ProgramUI
 
     private void EditDeveloperMenu()
     {
-        WriteLine("=====Edit Developer Menu=====");
         bool editDeveloper = true;
 
         while (editDeveloper)
         {
             Clear();
-            ;
+
+            ForegroundColor = ConsoleColor.DarkMagenta;
+            WriteLine("=====Edit Developer Menu=====");
+            ResetColor();
             WriteLine($"Please make a selection:\n" +
                                         "1. Add new Developers \n" +
                                         "2. Delete Developer\n" +
@@ -201,6 +223,11 @@ public class ProgramUI
                     editDeveloper = false;
                     break;
                 default:
+                    ForegroundColor = ConsoleColor.DarkRed;
+                    WriteLine($"{userInput} is not an option.\n" +
+                                "Please select a number between 1-4.\n");
+                    ResetColor();
+                    WaitKeyPress();
                     break;
             }
 
@@ -369,7 +396,9 @@ public class ProgramUI
     private void ShowAllDeveloperTeams()
     {
         Clear();
-        WriteLine("***Developer Team Listing***\n");
+        ForegroundColor = ConsoleColor.DarkMagenta;
+        WriteLine("***Developer Team Listing***");
+        ResetColor();
         GetDevTeamData();
         WaitKeyPress();
     }
@@ -401,7 +430,9 @@ public class ProgramUI
     private void FindDeveloperTeamByID()
     {
         Clear();
+        ForegroundColor = ConsoleColor.DarkMagenta;
         WriteLine("***Developer Team Listing***");
+        ResetColor();
         GetDevTeamData();
         List<DeveloperTeam> devTeam = _dTRepo.GetDeveloperTeams();
         if (devTeam.Count() > 0)
@@ -429,13 +460,14 @@ public class ProgramUI
 
     private void EditDeveloperTeamsMenu()
     {
-        WriteLine("=====Edit Developer Team Menu=====");
         bool editDevTeam = true;
 
         while (editDevTeam)
         {
             Clear();
-            ;
+            ForegroundColor = ConsoleColor.DarkMagenta;
+            WriteLine("=====Edit Developer Team Menu=====");
+            ResetColor();
             WriteLine($"Please make a selection:\n" +
                                         "1. Add new Developer Team \n" +
                                         "2. Delete Developer Team\n" +
@@ -460,6 +492,11 @@ public class ProgramUI
                     editDevTeam = false;
                     break;
                 default:
+                    ForegroundColor = ConsoleColor.DarkRed;
+                    WriteLine($"{userInput} is not an option.\n" +
+                                "Please select a number between 1-4.\n");
+                    ResetColor();
+                    WaitKeyPress();
                     break;
             }
 
@@ -516,6 +553,7 @@ public class ProgramUI
                         {
                             foreach (Developer aDev in auxDevelopers)
                             {
+                                // to check and see if you have already added this dev to the team
                                 switch (aDev == selectedDev)
                                 {
                                     case true:
@@ -537,7 +575,9 @@ public class ProgramUI
                             }
                             else
                             {
+                                ForegroundColor = ConsoleColor.Cyan;
                                 WriteLine($"You have already added {selectedDev.FullName} ID: {selectedDev.ID} to the team!");
+                                ResetColor();
                             }
                         }
                         else
@@ -677,6 +717,9 @@ public class ProgramUI
         List<Developer> devsWoPS = _dRepo.GetDevelopersWithoutPluralsight();
         if (devsWoPS.Count() > 0)
         {
+            ForegroundColor = ConsoleColor.Magenta;
+            WriteLine("***Developers Without Pluralsight***");
+            ResetColor();
             foreach (Developer dev in devsWoPS)
             {
                 DisplayDevData(dev);
@@ -684,7 +727,9 @@ public class ProgramUI
         }
         else
         {
+            ForegroundColor = ConsoleColor.Magenta;
             WriteLine("Every Developer has Pluralsight!");
+            ResetColor();
         }
         WaitKeyPress();
     }
@@ -720,19 +765,55 @@ public class ProgramUI
                     {
                         if (auxDevsInDb.Count() > 0)
                         {
+                            Clear();
+                            ForegroundColor = ConsoleColor.Magenta;
+                            WriteLine("Avaiable developers to add:");
+                            ResetColor();
                             DisplayDevsInDb(auxDevsInDb);
+                            ForegroundColor = ConsoleColor.Magenta;
                             WriteLine($"Do you want to add a developer to {team.TeamName}? y/n");
+                            ResetColor();
                             string userInputAnyDev = ReadLine()!.ToLower();
 
                             if (userInputAnyDev == "y")
                             {
+                                ForegroundColor = ConsoleColor.Magenta;
                                 WriteLine("Input Developer ID");
+                                ResetColor();
                                 int userInputDevID = int.Parse(ReadLine()!);
                                 Developer dev = _dRepo.GetDeveloperbyID(userInputDevID);
+                                bool devAlreadyAdded = false;
+
                                 if (dev != null)
                                 {
-                                    devsToAdd.Add(dev);
-                                    auxDevsInDb.Remove(dev);
+                                    foreach (Developer aDev in auxDevsInDb)
+                                    {
+                                        switch (aDev == dev)
+                                        {
+                                            case true:
+                                                devAlreadyAdded = false;
+                                                break;
+                                            default:
+                                                devAlreadyAdded = true;
+                                                break;
+                                        }
+                                        if (!devAlreadyAdded)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (!devAlreadyAdded)
+                                    {
+                                        devsToAdd.Add(dev);
+                                        auxDevsInDb.Remove(dev);
+                                    }
+                                    else
+                                    {
+                                        ForegroundColor = ConsoleColor.Cyan;
+                                        WriteLine($"You have already added {dev.FullName} ID: {dev.ID} to the team!");
+                                        ResetColor();
+                                        WaitKeyPress();
+                                    }
                                 }
                                 else
                                 {
